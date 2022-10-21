@@ -7,7 +7,7 @@ services:
   app-server:
     # Configuration for building the docker image for the backend service
     build:
-      context: serveurr # Use an image built from the specified dockerfile in the `server` directory.
+      context: serveur # Use an image built from the specified dockerfile in the `server` directory.
       dockerfile: Dockerfile
     command: sh -c "mvn clean package"
     ports:
