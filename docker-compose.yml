@@ -9,6 +9,7 @@ services:
     build:
       context: serveur # Use an image built from the specified dockerfile in the `server` directory.
       dockerfile: Dockerfile
+    command: mvn clean package
     ports:
       - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
     restart: always
