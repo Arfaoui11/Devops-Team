@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 FROM maven:3.8.2-jdk-8
-RUN mvn clean install
+RUN mvn install:install-file -DgroupId="javax.jms" -DartifactId="jms" -Dversion="1.1" -Dpackaging="jar" -Dfile="jms-1.1.jar"
 EXPOSE 8089
 ADD target/docker-spring-boot.jar docker-spring-boot.jar
 ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
