@@ -1,19 +1,15 @@
-FROM openjdk:8-jdk-alpine
-EXPOSE 8089
-ADD target/docker-spring-boot.jar docker-spring-boot.jar
-ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
-
-#FROM maven:3.8.2-jdk-8
-
-#WORKDIR /tpAchatProject
-#COPY . .
-#RUN mvn clean package
+#FROM openjdk:8-jdk-alpine
 #EXPOSE 8089
 #ADD target/docker-spring-boot.jar docker-spring-boot.jar
 #ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
-
-
-
+FROM openjdk:8-jdk-alpine
+FROM maven:3.8.2-jdk-8
+WORKDIR /app
+COPY . .
+RUN mvn clean package
+EXPOSE 8089
+ADD target/docker-spring-boot.jar docker-spring-boot.jar
+ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
 #### Stage 1: Build the application
 #FROM openjdk:11-jdk-slim AS build
 
