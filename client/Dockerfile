@@ -13,4 +13,5 @@ WORKDIR /app
 RUN npm ci
 COPY . .
 #CMD ["npm","start"]
+EXPOSE 80
 CMD ["npm","run","start"]
