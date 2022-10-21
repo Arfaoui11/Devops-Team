@@ -12,17 +12,12 @@ services:
     ports:
       - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
     restart: always
-    env_file: ./.env
     depends_on: 
       - mysqldb # This service depends on mysql. Start that first.
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsDB?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root     
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
       - frontend
