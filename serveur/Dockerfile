@@ -10,7 +10,7 @@ COPY src src
 COPY pom.xml .
 RUN ./mvnw package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-RUN mvn clean package
+#RUN mvn clean package
 EXPOSE 8089
 ADD target/docker-spring-boot.jar docker-spring-boot.jar
 ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
