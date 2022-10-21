@@ -65,15 +65,15 @@ pipeline {
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
-        stage("Run the container with ansible"){
+     /*   stage("Run the container with ansible"){
                               steps {
                                   sh 'ansible-playbook ansible-playbook.yml'
                                      }
-                         }
+                         }*/
          stage("Build the package"){
                             steps {
-
-                               // sh ' mvn clean package'
+                                sh 'cd /serveur'
+                                sh ' mvn clean package'
                                 sh 'docker-compose up -d --build'
 
 
