@@ -72,7 +72,7 @@ pipeline {
                          }*/
          stage("Build the package"){
                             steps {
-                                sh 'mvn clean package'
+                               // sh 'mvn clean package'
                                // sh 'cd .serveur'
                                // sh 'mvn clean package'
                                 sh 'docker-compose up -d --build'
