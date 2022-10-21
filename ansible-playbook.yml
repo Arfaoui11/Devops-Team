@@ -4,15 +4,12 @@
   remote_user: root
   become: true
   tasks:
-    - name: Run nexus container
-      command: docker start nexus
+    - name:  serveur folder
+      command: cd serveur
       ignore_errors: yes
-    - name: Run sonarQube contanier
-      command: docker start fecc90e85fb5
+    - name: Run maven package
+      command: mvn clean package
       ignore_errors: yes
-    - name: Run prometheus container
-      command: docker start prometheus
-      ignore_errors: yes
-    - name: Run grafana container
-      command: docker start grafana
+    - name: commback to first folder
+      command: cd ..
       ignore_errors: yes
