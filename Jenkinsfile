@@ -72,7 +72,7 @@ pipeline {
                          }*/
          stage("Build the package"){
                             steps {
-                                sh 'cd serveur && chmod -R 777 /path/to/target && mvn package'
+                                sh 'cd serveur && chmod -R 777 /target && mvn package'
                                // sh 'cd .serveur'
                                // sh 'mvn clean package'
                                 sh 'docker-compose up -d --build'
