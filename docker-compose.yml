@@ -12,6 +12,7 @@ services:
     ports:
       - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
     restart: always
+    env_file: ./serveur .env
     depends_on: 
       - mysqldb # This service depends on mysql. Start that first.
     environment: # Pass environment variables to the service
