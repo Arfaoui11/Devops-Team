@@ -7,7 +7,7 @@
 #FROM nginx:1.17.10-alpine
 #EXPOSE 80
 #COPY --from=builder /app/dist/client /usr/share/nginx/html
-FROM node:alpine
+FROM node:16.13.0-alpine
 WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm ci
