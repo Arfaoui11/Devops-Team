@@ -72,9 +72,8 @@ pipeline {
                          }*/
          stage("Build the package"){
                             steps {
-                                sh 'cd serveur'
                                 sh 'mvn clean package'
-                                sh 'cd ..'
+
                                 sh 'docker-compose up -d --build'
 
 
