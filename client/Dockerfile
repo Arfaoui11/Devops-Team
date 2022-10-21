@@ -8,8 +8,8 @@
 #EXPOSE 80
 #COPY --from=builder /app/dist/client /usr/share/nginx/html
 FROM node:16.13.0-alpine
-WORKDIR /usr/src/app
-COPY package*.json .
+COPY . /app
+WORKDIR /app
 RUN npm ci
 COPY . .
 #CMD ["npm","start"]
