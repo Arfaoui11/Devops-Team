@@ -61,8 +61,8 @@ pipeline {
         stage('Checkout GIT'){
                       steps{
                           echo 'Pulling...';
-                          git branch: 'test',
-                          url: 'https://github.com/Arfaoui11/DevOpsProject-Mahdi-Arfaoui.git';
+                          git branch: 'master',
+                          url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
      /*   stage("Run the container with ansible"){
