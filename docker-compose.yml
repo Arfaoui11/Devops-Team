@@ -18,6 +18,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsDB?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root     
+    volumes:
+      - .m2:/root/.m2
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
       - frontend
