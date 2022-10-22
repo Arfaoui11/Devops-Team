@@ -32,7 +32,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./portainer-data:/data
     ports:
-      - "8000:8000"
+      - "9000:9000"
   # Frontend Service 
   app-client:
     build:
