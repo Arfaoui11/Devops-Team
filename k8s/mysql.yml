@@ -62,13 +62,11 @@ spec:
         tier: mysql
     spec:                           # The spec for the containers that will be run inside the Pods in this deployment
       containers:
-      - image: mysql:8.0            # The container image
+      - image: mysql:5.7            # The container image
         name: mysql
         env:                        # Environment variables passed to the container 
-        - name: MYSQL_ROOT_PASSWORD 
+        - name: MYSQL_ROOT_PASSWORD
           value: root
-        - name: MYSQL_DATABASE
-          value : devopsDB
         - name: MYSQL_USER
           value: root
         ports:
