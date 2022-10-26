@@ -16,7 +16,7 @@
     - name: Deploy Spring Boot on Kubernetes
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-server.yml
       ignore_errors: yes
-    - name: Create Spring Boot Application Image
+    - name: Create Angular Application Image
       command: docker build -t mahdijr/app-k8s-client:1.0 /var/lib/jenkins/workspace/DevOps-IOC/client
       ignore_errors: yes
     - name: Push the image to DockerHub
