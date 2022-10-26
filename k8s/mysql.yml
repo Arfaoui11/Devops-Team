@@ -67,8 +67,8 @@ spec:
         env:                        # Environment variables passed to the container 
         - name: MYSQL_ROOT_PASSWORD
           value: root
-        - name: MYSQL_USER
-          value: root
+        - name: MYSQL_DATABASE
+          value : devopsDB
         ports:
         - containerPort: 3306        # The port that the container exposes       
           name: mysql
