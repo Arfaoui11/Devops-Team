@@ -20,7 +20,7 @@
       command: docker build -t mahdijr/app-k8s-client:1.0 /var/lib/jenkins/workspace/DevOps-IOC/client
       ignore_errors: yes
     - name: Push the image to DockerHub
-      command: docker push mahdijr/app-k8s-server:1.0
+      command: docker push mahdijr/app-k8s-client:1.0
       ignore_errors: yes
     - name: Deploy Angular on Kubernetes
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml
