@@ -1,20 +1,20 @@
 apiVersion: apps/v1             # API version
 kind: Deployment                # Type of kubernetes resource
 metadata:
-  name: social-login-app-client      # Name of the kubernetes resource
+  name: app-client      # Name of the kubernetes resource
 spec:
   replicas: 1                   # No of replicas/pods to run
   selector:                     
     matchLabels:                # This deployment applies to Pods matching the specified labels
-      app: social-login-app-client
+      app: app-client
   template:                     # Template for creating the Pods in this deployment
     metadata:
       labels:                   # Labels that will be applied to all the Pods in this deployment
-        app: social-login-app-client
+        app: app-client
     spec:                       # Spec for the containers that will run inside the Pods
       containers:
-      - name: social-login-app-client
-        image: javachinna/social-login-app-client:1.0.0
+      - name: app-client
+        image: mahdijr/app-k8s-client:1.0
         imagePullPolicy: Always
         ports:
           - name: http
@@ -27,11 +27,11 @@ spec:
 apiVersion: v1                  # API version
 kind: Service                   # Type of kubernetes resource
 metadata:
-  name: social-login-app-client      # Name of the kubernetes resource
+  name: app-client      # Name of the kubernetes resource
 spec:
   type: NodePort                # Exposes the service by opening a port on each node
   selector:
-    app: social-login-app-client     # Any Pod matching the label `app=social-login-app-client` will be picked up by this service
+    app: app-client     # Any Pod matching the label `app=app-client` will be picked up by this service
   ports:                        # Forward incoming connections on port 8081 to the target port 80 in the Pod
   - name: http
     port: 8081
