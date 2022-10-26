@@ -7,4 +7,3 @@
     - name:  Deploy MySQL on Kubernetes
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml
       ignore_errors: yes
-
