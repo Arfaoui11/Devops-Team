@@ -32,7 +32,7 @@ spec:
         - name: SPRING_DATASOURCE_PASSWORD
           value: root
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://mysql-app:3306/devopsDB?useSSL=false
+          value: jdbc:mysql://app-mysql:3306/devopsDB?useSSL=false
 ---
 apiVersion: v1                # API version
 kind: Service                 # Type of the kubernetes resource
