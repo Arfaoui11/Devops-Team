@@ -8,7 +8,10 @@
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml
       ignore_errors: yes
     - name:  Create Spring Boot Application Image
-      command: docker build -t javachinna/social-login-app-server:1.0.0 ./serveur
+      command: docker build -t mahdijr/app-k8s-server:1.0 ./serveur
+      ignore_errors: yes
+    - name:  Push the image to DockerHub
+      command: docker push mahdijr/app-k8s-server:1.0
       ignore_errors: yes
     - name: Deploy Spring Boot on Kubernetes
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-server.yml
