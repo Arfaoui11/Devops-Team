@@ -22,4 +22,7 @@
     - name: Create Production ClusterIssuer
       command: kubectl apply -f k8s/prod-issuer.yml
       ignore_errors: yes
+    - name: Configure Ingress To Use Production ClusterIssuer
+      command: kubectl apply -f k8s/ingress-nginx-https.yml
+      ignore_errors: yes
 
