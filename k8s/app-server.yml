@@ -46,5 +46,5 @@ spec:
     app: app-server   # The service exposes Pods with label `app=app-server`
   ports:                      # Forward incoming connections on port 8080 to the target port 8080
   - name: http
-    port: 8080
-    targetPort: 8080
+    port: 8089
+    targetPort: 8089
