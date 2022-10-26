@@ -5,24 +5,24 @@
   become: true
   tasks:
     - name:  Deploy MySQL on Kubernetes
-      command: kubectl apply -f k8s/mysql.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml
       ignore_errors: yes
     - name: Deploy Spring Boot on Kubernetes
-      command: kubectl apply -f k8s/app-server.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-server.yml
       ignore_errors: yes
     - name: Deploy Angular on Kubernetes
-      command: kubectl apply -f k8s/app-client.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml
       ignore_errors: yes
     - name: Expose the App Using an Ingress
-      command: kubectl apply -f k8s/ingress-nginx.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx.yml
       ignore_errors: yes
     - name: Create ClusterIssuer
-      command: kubectl apply -f k8s/staging-issuer.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/staging-issuer.yml
       ignore_errors: yes
     - name: Create Production ClusterIssuer
-      command: kubectl apply -f k8s/prod-issuer.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/prod-issuer.yml
       ignore_errors: yes
     - name: Configure Ingress To Use Production ClusterIssuer
-      command: kubectl apply -f k8s/ingress-nginx-https.yml
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
       ignore_errors: yes
 
