@@ -10,7 +10,7 @@ spec:
   - hosts:
     - client.k8s.xyz
     - server.k8s.xyz
-    secretName: social-login-app-tls
+    secretName: app-tls
   rules:
   - host: "client.k8s.xyz"
     http:
