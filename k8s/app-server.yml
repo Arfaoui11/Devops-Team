@@ -28,20 +28,11 @@ spec:
             memory: "200Mi"
         env:                  # Environment variables supplied to the Pod
         - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
-          valueFrom:          # Get the value of environment variable from kubernetes secrets
-            secretKeyRef:
-              name: mysql-user-pass
-              key: username
+          value: root
         - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-user-pass
-              key: password
+          value: root
         - name: SPRING_DATASOURCE_URL
-          valueFrom:
-            secretKeyRef:
-              name: mysql-db-url
-              key: url
+          value: jdbc:mysql://mysqldb:3306/devopsDB
 ---
 apiVersion: v1                # API version
 kind: Service                 # Type of the kubernetes resource
