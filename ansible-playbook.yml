@@ -4,12 +4,22 @@
   remote_user: root
   become: true
   tasks:
-    - name:  serveur folder
-      command: cd serveur
+    - name:  Deploy MySQL on Kubernetes
+      command: kubectl apply -f k8s/mysql.yml
       ignore_errors: yes
-    - name: Run maven package
-      command: mvn clean package
+    - name: Deploy Spring Boot on Kubernetes
+      command: kubectl apply -f k8s/app-server.yml
       ignore_errors: yes
-    - name: comme back to first folder
-      command: cd ..
+    - name: Deploy Angular on Kubernetes
+      command: kubectl apply -f k8s/app-client.yml
       ignore_errors: yes
+    - name: Expose the App Using an Ingress
+      command: kubectl apply -f k8s/ingress-nginx.yml
+      ignore_errors: yes
+    - name: Create ClusterIssuer
+      command: kubectl apply -f k8s/staging-issuer.yml
+      ignore_errors: yes
+    - name: Create Production ClusterIssuer
+      command: kubectl apply -f k8s/prod-issuer.yml
+      ignore_errors: yes
+
