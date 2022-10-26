@@ -32,10 +32,3 @@ spec:
             name: app-server
             port:
               number: 8089
-      - pathType: Prefix
-        path: /oauth2/
-        backend:
-          service:
-            name: app-server
-            port:
-              number: 8089
