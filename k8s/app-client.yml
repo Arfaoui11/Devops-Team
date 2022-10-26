@@ -34,5 +34,5 @@ spec:
     app: app-client     # Any Pod matching the label `app=app-client` will be picked up by this service
   ports:                        # Forward incoming connections on port 8081 to the target port 80 in the Pod
   - name: http
-    port: 8081
+    port: 8090
     targetPort: 80
