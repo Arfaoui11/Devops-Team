@@ -65,18 +65,18 @@ pipeline {
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
-        stage("Run the container with ansible"){
+      /*  stage("Run the container with ansible"){
             steps {
                 sh 'ansible-playbook ansible-playbook.yml'
             }
-        }
-        /* stage("Build the package"){
+        }*/
+         stage("Build the package"){
                             steps {
 
                                 sh 'docker-compose up -d --build'
 
                             }
-        }*/
+        }
      /*   stage("nexus deploy"){
               steps {
                   sh 'mvn deploy'
@@ -101,7 +101,7 @@ pipeline {
                 }
             }
         }*/
-    /*  stage("Sonar Quality Check"){
+      stage("Sonar Quality Check"){
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
@@ -118,7 +118,7 @@ pipeline {
 
 		    }
             }
-        }*/
+        }
 
 
 
