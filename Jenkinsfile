@@ -79,7 +79,7 @@ pipeline {
         }*/
        stage("nexus deploy"){
               steps {
-                  sh 'mvn -f /serveur/pom.xml deploy'
+                  sh 'chmod 777 /var/jenkins_home/JOBS && mvn -f /serveur/pom.xml deploy'
                      }
          }
 
