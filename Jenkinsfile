@@ -79,7 +79,7 @@ pipeline {
         }*/
        stage("nexus deploy"){
               steps {
-                  sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/ && mvn deploy'
+                  sh 'mvn -f /serveur/pom.xml deploy'
                      }
          }
 
