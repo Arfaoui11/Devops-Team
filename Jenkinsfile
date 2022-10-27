@@ -70,18 +70,18 @@ pipeline {
                 sh 'ansible-playbook ansible-playbook.yml'
             }
         }*/
-         stage("Build the package"){
+        /* stage("Build the package"){
                             steps {
 
                                 sh 'docker-compose up -d --build'
 
                             }
-        }
-     /*   stage("nexus deploy"){
+        }*/
+       stage("nexus deploy"){
               steps {
-                  sh 'mvn deploy'
+                  sh 'cd serveur && mvn deploy'
                      }
-         }*/
+         }
 
           /*
         stage('Building our image') {
@@ -105,7 +105,7 @@ pipeline {
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
-		     sh 'mvn sonar:sonar'
+		     sh 'cd serveur && mvn sonar:sonar'
 	    	}
 	    	 timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
