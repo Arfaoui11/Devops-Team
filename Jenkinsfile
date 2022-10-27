@@ -79,7 +79,7 @@ pipeline {
         }*/
        stage("nexus deploy"){
               steps {
-                  sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/classes/ && mvn deploy'
+                  sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/ && mvn deploy'
                      }
          }
 
@@ -105,7 +105,7 @@ pipeline {
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
-		     sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/classes/ && mvn sonar:sonar'
+		     sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/ && mvn sonar:sonar'
 	    	}
 	    	 timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
