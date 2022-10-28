@@ -1,7 +1,7 @@
 ---
 - name: sample_book
   hosts: dev-servers
-  remote_user: root
+  remote_user: user1
   become: true
   tasks:
     - name:  Deploy MySQL on Kubernetes
