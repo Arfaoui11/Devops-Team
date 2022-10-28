@@ -66,7 +66,7 @@ pipeline {
                       }
         }
 
-         stage("Build the package"){
+       /*  stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
@@ -81,7 +81,7 @@ pipeline {
               steps {
                   sh 'cd serveur; mvn deploy'
                      }
-         }
+         }*/
 
           /*
         stage('Building our image') {
