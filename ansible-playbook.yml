@@ -38,6 +38,6 @@
       command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
       ignore_errors: yes
     - name: maven deplay with nexus
-      command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur deploy
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy
       ignore_errors: yes
 
