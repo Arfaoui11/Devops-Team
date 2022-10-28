@@ -65,16 +65,18 @@ pipeline {
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
-        stage("Run the container with ansible"){
-            steps {
-                sh 'ansible-playbook ansible-docker-compose.yml'
-            }
-        }
+
          stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
         }
+
+         stage("Run the container with ansible"){
+                    steps {
+                        sh 'ansible-playbook ansible-docker-compose.yml'
+                    }
+                }
      /*  stage("nexus deploy"){
               steps {
                   sh 'mvn -f /serveur/pom.xml deploy'
