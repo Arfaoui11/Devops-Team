@@ -2,6 +2,7 @@
 - name: sample_book
   hosts: dev-servers
   remote_user: user1
+  ansible_become_password: 123456789
   become: true
   tasks:
     - name:  Deploy MySQL on Kubernetes
