@@ -83,11 +83,11 @@ pipeline {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }*/
-      /* stage("nexus deploy"){
+       stage("nexus deploy"){
               steps {
-                  sh 'cd serveur; mvn deploy'
+                  sh 'mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy'
                      }
-         }*/
+         }
 
           /*
         stage('Building our image') {
