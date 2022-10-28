@@ -1,3 +1,5 @@
 Dockerfile
 .dockerignore
 docker-compose.yml
+target/
+!.mvn/wrapper/maven-wrapper.jar
