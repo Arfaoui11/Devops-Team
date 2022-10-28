@@ -76,12 +76,12 @@ pipeline {
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
-                }
+                }*/
        stage("nexus deploy"){
               steps {
                   sh 'cd serveur; mvn deploy'
                      }
-         }*/
+         }
 
           /*
         stage('Building our image') {
