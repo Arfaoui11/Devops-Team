@@ -105,7 +105,7 @@ pipeline {
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
-		     sh 'cd serveur && chmod +r /var/lib/jenkins/workspace/FullStack-DevOps/serveur/target/ && mvn sonar:sonar'
+		     sh 'mvn sonar:sonar'
 	    	}
 	    	 timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
