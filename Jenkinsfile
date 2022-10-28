@@ -68,7 +68,7 @@ pipeline {
 
         stage("Run the container with ansible"){
                             steps {
-                                sh 'ansible-playbook ansible-playbook.yml'
+                                sh 'ansible-playbook ansible-docker-compose.yml'
                             }
                         }
 
