@@ -5,5 +5,5 @@
   become: true
   tasks:
     - name: maven deplay with nexus
-      command: cd serveur && mvn deploy
+      command: cd serveur; mvn deploy
       ignore_errors: yes
