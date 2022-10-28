@@ -70,18 +70,18 @@ pipeline {
                 sh 'ansible-playbook ansible-playbook.yml'
             }
         }*/
-        /* stage("Build the package"){
+         stage("Build the package"){
                             steps {
 
                                 sh 'docker-compose up -d --build'
 
                             }
-        }*/
-       stage("nexus deploy"){
+        }
+     /*  stage("nexus deploy"){
               steps {
-                  sh 'chmod 777 /var/lib/jenkins/workspace/ && mvn -f /serveur/pom.xml deploy'
+                  sh 'mvn -f /serveur/pom.xml deploy'
                      }
-         }
+         }*/
 
           /*
         stage('Building our image') {
