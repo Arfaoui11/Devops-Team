@@ -66,6 +66,12 @@ pipeline {
                       }
         }
 
+        stage("Run the container with ansible"){
+                            steps {
+                                sh 'ansible-playbook ansible-playbook.yml'
+                            }
+                        }
+
        /*  stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
@@ -77,11 +83,11 @@ pipeline {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }*/
-       stage("nexus deploy"){
+      /* stage("nexus deploy"){
               steps {
                   sh 'cd serveur; mvn deploy'
                      }
-         }
+         }*/
 
           /*
         stage('Building our image') {
@@ -101,7 +107,7 @@ pipeline {
                 }
             }
         }*/
-      stage("Sonar Quality Check"){
+     /* stage("Sonar Quality Check"){
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
@@ -120,7 +126,7 @@ pipeline {
             }
         }
 
-
+*/
 
 /*
 
