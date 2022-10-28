@@ -113,7 +113,7 @@ pipeline {
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
 		     sh 'mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml sonar:sonar'
 	    	}
-	    	 timeout(time: 1, unit: 'HOURS') {
+	    	/* timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
@@ -121,7 +121,7 @@ pipeline {
 
 		    }
 
-
+            */
 		    }
             }
         }
