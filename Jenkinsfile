@@ -66,11 +66,11 @@ pipeline {
                       }
         }
 
-       /* stage("Run the container with ansible"){
+        stage("Run the container with ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }*/
+                        }
 
        /*  stage("Build the package"){
              steps {
@@ -83,11 +83,11 @@ pipeline {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }*/
-       stage("nexus deploy"){
+      /* stage("nexus deploy"){
               steps {
                   sh 'cd serveur; mvn deploy'
                      }
-         }
+         }*/
 
           /*
         stage('Building our image') {
