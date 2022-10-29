@@ -5,8 +5,8 @@
   become: true
   tasks:
     - name: maven deplay with nexus
-      command: mvn -f /var/lib/jenkins/workspace/FullSack-CICD/serveur/pom.xml deploy
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml deploy
       ignore_errors: yes
     - name: maven Test with SonarQube
-      command: mvn -f /var/lib/jenkins/workspace/FullSack-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
       ignore_errors: yes
