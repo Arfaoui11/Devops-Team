@@ -157,7 +157,7 @@ pipeline {
                             mail to: "mahdi.arfaoui1@esprit.tn",
                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}",
                             from: 'mahdi.arfaoui1@esprit.tn',
-                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'}"
                         }
 
                         failure{
@@ -171,7 +171,7 @@ pipeline {
                             mail to: "mahdi.arfaoui1@esprit.tn",
                             subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
                             from: 'mahdi.arfaoui1@esprit.tn',
-                            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL} and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'}"
                         }
                     }
 
