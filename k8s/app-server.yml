@@ -48,4 +48,3 @@ spec:
   - name: http
     port: 8089
     targetPort: 8089
-    NodePort: 8089
