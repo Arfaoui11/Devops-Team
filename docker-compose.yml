@@ -4,23 +4,6 @@ version: '3.7'
 # Define services
 services:
   # App backend service
-  app-server:
-    # Configuration for building the docker image for the backend service
-    build:
-      context: serveur # Use an image built from the specified dockerfile in the `server` directory.
-      dockerfile: Dockerfile
-    ports:
-      - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
-    restart: always
-    depends_on: 
-      - mysqldb # This service depends on mysql. Start that first.
-    environment: # Pass environment variables to the service
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsDB?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root     
-    networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - backend
-      - frontend
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
@@ -32,33 +15,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./portainer-data:/data
     ports:
-      - "9000:9001"
-  # Frontend Service 
-  app-client:
-    build:
-      context: client # Use an image built from the specified dockerfile in the `client` directory.
-      dockerfile: Dockerfile
-    ports:
-      - "4200:80" # Map the exposed port 80 on the container to port 4200 on the host machine
-    restart: always
-    depends_on:
-      - app-server
-    networks:
-      - frontend  
-
-  # Database Service (Mysql)
-  mysqldb:
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    restart: always
-    environment:
-      MYSQL_DATABASE: devopsDB
-      MYSQL_ROOT_PASSWORD: root
-    networks:
-      - backend  
-  
-# Networks to be created to facilitate communication between containers
-networks:
-  backend:
-  frontend:  
+      - "9001:9000"
