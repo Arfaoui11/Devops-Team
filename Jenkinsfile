@@ -66,23 +66,23 @@ pipeline {
                       }
         }
 
-        stage("Run the container with ansible"){
+       /* stage("Run the container with ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }
+                        }*/
 
-       /*  stage("Build the package"){
+         stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
         }
 
-         stage("Run the container with ansible"){
+         stage("nexus deploy && Sonar Quality Check with ansible"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
-                }*/
+                }
      /*  stage("nexus deploy"){
               steps {
                   sh 'mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy'
