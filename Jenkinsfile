@@ -71,6 +71,11 @@ pipeline {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
                         }*/
+             stage("nexus deploy && Sonar Quality Check with ansible"){
+                    steps {
+                        sh 'ansible-playbook ansible-docker-compose.yml'
+                    }
+                }
 
          stage("Build the package"){
              steps {
@@ -78,16 +83,8 @@ pipeline {
              }
         }
 
-         stage("nexus deploy && Sonar Quality Check with ansible"){
-                    steps {
-                        sh 'ansible-playbook ansible-docker-compose.yml'
-                    }
-                }
-     /*  stage("nexus deploy"){
-              steps {
-                  sh 'mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy'
-                     }
-         }*/
+
+
 
           /*
         stage('Building our image') {
@@ -139,6 +136,16 @@ pipeline {
             }
 
         }*/
+
+        stage('Date') {
+                        steps {
+                             script{
+                             def date = new Date()
+                             sdf = new SimpleDateFormat("MM/dd/yyyy")
+                             println(sdf.format(date))
+        }
+        }
+        }
 
     }
 
