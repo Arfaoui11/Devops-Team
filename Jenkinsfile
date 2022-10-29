@@ -170,7 +170,7 @@ pipeline {
 
                         changed{
                             mail to: "mahdi.arfaoui1@esprit.tn",
-                            subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME} Data $BUILDVERSION",
+                            subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME} Data ${BUILD_TIMESTAMP}",
                             from: 'mahdi.arfaoui1@esprit.tn',
                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}\n and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'} ,Angular URL is ${'http://10.0.0.10:4200'} "
                         }
