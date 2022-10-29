@@ -55,6 +55,7 @@ pipeline {
         registry = "mahdijr/devops-tp"
         registryCredential = 'a8e9ee1f-1fa3-47e5-bef7-5d65e3d019f4'
         dockerImage = ''
+        def BUILDVERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
     }
     agent any
     stages {
@@ -157,7 +158,7 @@ pipeline {
                             mail to: "mahdi.arfaoui1@esprit.tn",
                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}\n and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'} ,Angular URL is ${'http://10.0.0.10:4200'} ",
                             from: 'mahdi.arfaoui1@esprit.tn',
-                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} Data ${BUILD_TIMESTAMP}"
+                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} Data $BUILDVERSION"
                         }
 
                         failure{
@@ -169,7 +170,7 @@ pipeline {
 
                         changed{
                             mail to: "mahdi.arfaoui1@esprit.tn",
-                            subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME} Data ${BUILD_TIMESTAMP}",
+                            subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME} Data $BUILDVERSION",
                             from: 'mahdi.arfaoui1@esprit.tn',
                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}\n and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'} ,Angular URL is ${'http://10.0.0.10:4200'} "
                         }
