@@ -157,11 +157,7 @@ pipeline {
                             mail to: "mahdi.arfaoui1@esprit.tn",
                             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}\n and Swagger URL is ${'http://10.0.0.10:8089/SpringMVC/swagger-ui/index.html'} ,Angular URL is ${'http://10.0.0.10:4200'} ",
                             from: 'mahdi.arfaoui1@esprit.tn',
-                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} Data ${ script{
-                                                                                                                                           def date = new Date()
-                                                                                                                                           sdf = new SimpleDateFormat("MM/dd/yyyy")
-                                                                                                                                           println(sdf.format(date))
-                                                                                                                      }}"
+                            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} Data ${currentBuild.currentDate}"
                         }
 
                         failure{
