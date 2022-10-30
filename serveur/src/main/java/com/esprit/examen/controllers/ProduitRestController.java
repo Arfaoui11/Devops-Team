@@ -2,6 +2,9 @@ package com.esprit.examen.controllers;
 
 
 import java.util.List;
+
+import com.esprit.examen.dto.ProduitDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +22,10 @@ public class ProduitRestController {
 
 	@Autowired
 	IProduitService produitService;
+	@Autowired
+	private ModelMapper modelMapper;
 
-	@GetMapping("/retrieve-all-produits")
+	@GetMapping("/get-all-produits")
 	@ResponseBody
 	public List<Produit> getProduits() {
 		return produitService.retrieveAllProduits();
@@ -35,8 +40,10 @@ public class ProduitRestController {
 	/* Ajouter en produit tout en lui affectant la catégorie produit et le stock associés */
 	@PostMapping("/add-produit")
 	@ResponseBody
-	public Produit addProduit(@RequestBody Produit p) {
-		return produitService.addProduit(p);
+	public Produit addProduit(@RequestBody ProduitDTO p) {
+		Produit persistentProduit = modelMapper.map(p,  Produit.class);
+
+		return  produitService.addProduit( persistentProduit);
 	}
 
 	@DeleteMapping("/remove-produit/{produit-id}")
@@ -47,8 +54,9 @@ public class ProduitRestController {
 
 	@PutMapping("/modify-produit")
 	@ResponseBody
-	public Produit modifyProduit(@RequestBody Produit p) {
-		return produitService.updateProduit(p);
+	public Produit modifyProduit(@RequestBody ProduitDTO p) {
+        Produit persistentProduit = modelMapper.map(p,  Produit.class);
+		return produitService.updateProduit(persistentProduit);
 	}
 
 	/*
@@ -60,16 +68,6 @@ public class ProduitRestController {
 		produitService.assignProduitToStock(idProduit, idStock);
 	}
 
-	/*
-	 * Revenu Brut d'un produit (qte * prix unitaire de toutes les lignes du
-	 * detailFacture du produit envoyé en paramètre )
-	 */
-/*	@GetMapping(value = "/getRevenuBrutProduit/{idProduit}/{startDate}/{endDate}")
-	public float getRevenuBrutProduit(@PathVariable("idProduit") Long idProduit,
-			@PathVariable(name = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
-			@PathVariable(name = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
 
-		return produitService.getRevenuBrutProduit(idProduit, startDate, endDate);
-	}*/
 
 }

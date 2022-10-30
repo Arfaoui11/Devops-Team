@@ -18,11 +18,13 @@ public class OperateurController {
 	@Autowired
 	IOperateurService operateurService;
 	
+
 	@GetMapping("/retrieve-all-operateurs")
 	@ResponseBody
 	public List<Operateur> getOperateurs() {
 		return operateurService.retrieveAllOperateurs();
 	}
+
 
 	@GetMapping("/retrieve-operateur/{operateur-id}")
 	@ResponseBody
@@ -30,17 +32,20 @@ public class OperateurController {
 		return operateurService.retrieveOperateur(operateurId);
 	}
 
+
 	@PostMapping("/add-operateur")
 	@ResponseBody
 	public Operateur addOperateur(@RequestBody Operateur op) {
 		return operateurService.addOperateur(op);
 	}
 
+
 	@DeleteMapping("/remove-operateur/{operateur-id}")
 	@ResponseBody
 	public void removeOperateur(@PathVariable("operateur-id") Long operateurId) {
 		operateurService.deleteOperateur(operateurId);
 	}
+
 
 	@PutMapping("/modify-operateur")
 	@ResponseBody

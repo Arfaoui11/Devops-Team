@@ -18,11 +18,13 @@ public class SecteurActiviteController {
 	@Autowired
 	ISecteurActiviteService secteurActiviteService;
 	
+
 	@GetMapping("/retrieve-all-secteurActivite")
 	@ResponseBody
 	public List<SecteurActivite> getSecteurActivite() {
 		return secteurActiviteService.retrieveAllSecteurActivite();
 	}
+
 
 	@GetMapping("/retrieve-secteurActivite/{secteurActivite-id}")
 	@ResponseBody
@@ -30,17 +32,20 @@ public class SecteurActiviteController {
 		return secteurActiviteService.retrieveSecteurActivite(secteurActiviteId);
 	}
 
+
 	@PostMapping("/add-secteurActivite")
 	@ResponseBody
 	public SecteurActivite addSecteurActivite(@RequestBody SecteurActivite sa) {
 		return secteurActiviteService.addSecteurActivite(sa);
 	}
 
+
 	@DeleteMapping("/remove-secteurActivite/{secteurActivite-id}")
 	@ResponseBody
 	public void removeSecteurActivite(@PathVariable("secteurActivite-id") Long secteurActiviteId) {
 		secteurActiviteService.deleteSecteurActivite(secteurActiviteId);
 	}
+
 
 	@PutMapping("/modify-secteurActivite")
 	@ResponseBody
