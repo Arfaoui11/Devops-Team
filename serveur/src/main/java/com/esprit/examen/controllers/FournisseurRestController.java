@@ -25,13 +25,11 @@ public class FournisseurRestController {
 	@Autowired
 	IFournisseurService fournisseurService;
 
-
 	@GetMapping("/retrieve-all-fournisseurs")
 	@ResponseBody
 	public List<Fournisseur> getFournisseurs() {
 		return fournisseurService.retrieveAllFournisseurs();
 	}
-
 
 	@GetMapping("/retrieve-fournisseur/{fournisseur-id}")
 	@ResponseBody
@@ -51,13 +49,11 @@ public class FournisseurRestController {
 		fournisseurService.deleteFournisseur(fournisseurId);
 	}
 
-
 	@PutMapping("/modify-fournisseur")
 	@ResponseBody
 	public Fournisseur modifyFournisseur(@RequestBody Fournisseur fournisseur) {
 		return fournisseurService.updateFournisseur(fournisseur);
 	}
-
 
 		@PutMapping(value = "/assignSecteurActiviteToFournisseur/{idSecteurActivite}/{idFournisseur}")
 		public void assignProduitToStock(@PathVariable("idSecteurActivite") Long idSecteurActivite, @PathVariable("idFournisseur") Long idFournisseur) {
