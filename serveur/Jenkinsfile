@@ -48,6 +48,8 @@ pipeline {
         }
 
 */
+
+import java.text.SimpleDateFormat
 pipeline {
     environment {
         registry = "mahdijr/devops-tp"
@@ -61,29 +63,38 @@ pipeline {
         stage('Checkout GIT'){
                       steps{
                           echo 'Pulling...';
-                          git branch: 'test',
-                          url: 'https://github.com/Arfaoui11/DevOpsProject-Mahdi-Arfaoui.git';
+                          git branch: 'MahdiBack',
+                          url: 'https://github.com/Arfaoui11/DevOpsProjet.git';
                       }
         }
-      /*  stage("Run the container with ansible"){
+
+        stage("Run the container with ansible"){
                               steps {
                                   sh 'ansible-playbook ansible-playbook.yml'
                                      }
-                         }*/
+                         }
+          stage("mvn clean package"){
+                       steps {
+                           sh 'mvn clean package'
+                              }
+                  }
+
          stage("Build the package"){
                             steps {
-                                sh 'mvn clean package'
-
                                 sh 'docker-compose up -d --build'
-
-
                             }
                         }
-     /*   stage("nexus deploy"){
+        stage("nexus deploy"){
               steps {
                   sh 'mvn deploy'
                      }
-         }*/
+         }
+         stage("Tests JUnit / Mockito"){
+             steps {
+               sh 'mvn test'
+             }
+         }
+
 
           /*
         stage('Building our image') {
@@ -103,13 +114,13 @@ pipeline {
                 }
             }
         }*/
-   /*   stage("Sonar Quality Check"){
+      stage("Sonar Quality Check"){
 		steps{
 		    script{
 		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
 		     sh 'mvn sonar:sonar'
 	    	}
-	    	 timeout(time: 1, unit: 'HOURS') {
+	    	/* timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
@@ -117,11 +128,19 @@ pipeline {
 
 		    }
 
-
+             */
 		    }
             }
-        }*/
-
+        }
+stage('Date') {
+                steps {
+                     script{
+                     def date = new Date()
+                     sdf = new SimpleDateFormat("MM/dd/yyyy")
+                     println(sdf.format(date))
+                     }
+                }
+}
 
 
 /*
@@ -138,13 +157,36 @@ pipeline {
 
     }
 
-    post {
+  /*  post {
             success {
                 mail bcc: '', body: 'Pipeline build successfully', cc: '', from: 'mahdi.arfaoui1@esprit.tn', replyTo: '', subject: 'The Pipeline success', to: 'mahdi.arfaoui1@esprit.tn'
             }
             failure {
                 mail bcc: '', body: 'Pipeline build not success', cc: '', from: 'mahdi.arfaoui1@esprit.tn', replyTo: '', subject: 'The Pipeline failed', to: 'mahdi.arfaoui1@esprit.tn'
              }
-        }
+        }*/
+        post {
+
+                    success {
+                        mail to: "mahdi.arfaoui1@esprit.tn",
+                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}",
+                        from: 'mahdi.arfaoui1@esprit.tn',
+                        subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+                    }
+
+                    failure{
+                        mail to: "mahdi.arfaoui1@esprit.tn",
+                        subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                        from: 'mahdi.arfaoui1@esprit.tn',
+                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                    }
+
+                    changed{
+                        mail to: "mahdi.arfaoui1@esprit.tn",
+                        subject: "Jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                        from: 'mahdi.arfaoui1@esprit.tn',
+                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                    }
+                }
 
 }
