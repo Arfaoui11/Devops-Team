@@ -54,7 +54,8 @@ pipeline {
     environment {
         registry = "mahdijr/devops-tp"
         registryCredential = 'a8e9ee1f-1fa3-47e5-bef7-5d65e3d019f4'
-        dockerImage = ''
+        dockerImageSpring = 'devops-cicd_app-server'
+        dockerImageAngular = 'devops-cicd_app-client'
     }
     agent any
     stages {
@@ -68,12 +69,12 @@ pipeline {
                       }
         }
 
-       stage("Run the container with ansible"){
+      /* stage("Run the container with ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }
-           /*   stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
+                        }*/
+              stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
@@ -83,7 +84,7 @@ pipeline {
              steps {
                sh 'docker-compose up -d --build'
              }
-        }*/
+        }
 
 
 
@@ -96,16 +97,25 @@ pipeline {
                 }
             }
         }*/
-/*
-        stage('Deploy our image') {
+
+        stage('Deploy our image Serveur') {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+                        dockerImageSpring.push()
                     }
                 }
             }
-        }*/
+        }
+        stage('Deploy our image Client') {
+                    steps {
+                        script {
+                            docker.withRegistry( '', registryCredential ) {
+                                dockerImageAngular.push()
+                            }
+                        }
+                    }
+                }
      /* stage("Sonar Quality Check"){
 		steps{
 		    script{
