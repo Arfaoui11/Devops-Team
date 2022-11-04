@@ -15,7 +15,6 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
 
 
-@SpringBootTest(classes = StockServiceImplMockTest.class)
 @ExtendWith(MockitoExtension.class)
 public class StockServiceImplMockTest {
 
