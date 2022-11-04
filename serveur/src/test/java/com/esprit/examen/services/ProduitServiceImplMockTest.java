@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProduitServiceImplMockTest {
-/*
+
     @Mock
     ProduitRepository produitRepository;
 
@@ -90,7 +90,7 @@ public class ProduitServiceImplMockTest {
         produitService.deleteProduit(produitq.getIdProduit());
         verify(produitRepository).deleteById(produitq.getIdProduit());
     }
-*/
+
 
 
 }
