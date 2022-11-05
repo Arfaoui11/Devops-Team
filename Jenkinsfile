@@ -53,9 +53,9 @@ import java.text.SimpleDateFormat
 pipeline {
     environment {
         registry = "mahdijr/devops-tp"
-        registryCredential = 'jenkins-dockerhub-token'
-        dockerImageSpring = 'mahdijr/devops-cicd_app-server:latest'
-        dockerImageAngular = 'mahdijr/devops-cicd_app-client:latest'
+        registryCredential = 'dckr_pat_gc2mr1yxEuTqzpud9xtI2f5W-oE'
+        dockerImageSpring = 'devops-cicd_app-server:latest'
+        dockerImageAngular = 'devops-cicd_app-client:latest'
     }
     agent any
     stages {
