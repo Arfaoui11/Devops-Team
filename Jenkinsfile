@@ -96,17 +96,24 @@ pipeline {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-        }*/
+        }
 
-        stage('Deploy our image Server') {
+        stage('Deploy our image Serveur') {
             steps {
-                sh 'docker push mahdijr/app-server:2.0'
-
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImageSpring.push()
+                    }
+                }
             }
         }
         stage('Deploy our image Client') {
                     steps {
-                       sh 'docker push mahdijr/app-client:2.0'
+                        script {
+                            docker.withRegistry( '', registryCredential ) {
+                                dockerImageAngular.push()
+                            }
+                        }
                     }
                 }
      /* stage("Sonar Quality Check"){

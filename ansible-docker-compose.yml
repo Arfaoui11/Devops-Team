@@ -31,3 +31,9 @@
     - name: Create Angular Application Image
       command: docker build -t mahdijr/app-client:2.0 /var/lib/jenkins/workspace/DevOps-CICD/client
       ignore_errors: yes
+    - name: Push the Spring Boot image to DockerHub
+      command: docker push mahdijr/app-server:2.0
+      ignore_errors: yes
+    - name: Push the Angular image to DockerHub
+      command: docker push mahdijr/app-client:2.0
+      ignore_errors: yes
