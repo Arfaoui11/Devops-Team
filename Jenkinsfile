@@ -73,12 +73,12 @@ pipeline {
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }*/
+                        }
              stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
-                }
+                }*/
 
          /*  stage("Build the package"){
              steps {
