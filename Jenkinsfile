@@ -96,7 +96,7 @@ pipeline {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-        }*/
+        }
 
         stage('Deploy our image Serveur') {
             steps {
@@ -115,7 +115,7 @@ pipeline {
                             }
                         }
                     }
-                }
+                }*/
      /* stage("Sonar Quality Check"){
 		steps{
 		    script{
