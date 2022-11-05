@@ -53,7 +53,7 @@ import java.text.SimpleDateFormat
 pipeline {
     environment {
         registry = "mahdijr/devops-tp"
-        registryCredential = 'a8e9ee1f-1fa3-47e5-bef7-5d65e3d019f4'
+        registryCredential = 'dckr_pat_gc2mr1yxEuTqzpud9xtI2f5W-oE'
         dockerImageSpring = 'devops-cicd_app-server:latest'
         dockerImageAngular = 'devops-cicd_app-client:latest'
     }
@@ -73,7 +73,7 @@ pipeline {
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }*/
+                        }
               stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
@@ -87,7 +87,7 @@ pipeline {
         }
 
 
-
+*/
 
           /*
         stage('Building our image') {
