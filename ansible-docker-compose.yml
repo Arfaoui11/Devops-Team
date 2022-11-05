@@ -4,6 +4,12 @@
   remote_user: root
   become: true
   tasks:
+    - name: Run Nexus container with ansible
+      command: docker start nexus
+      ignore_errors: yes
+    - name: Run SonarQube container with ansible
+      command: docker start tender_nightingale
+      ignore_errors: yes
     - name: Run Prometheus container with ansible
       command: docker start prometheus
       ignore_errors: yes
