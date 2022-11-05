@@ -25,3 +25,9 @@
     - name: maven Test with SonarQube
       command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
       ignore_errors: yes
+    - name: Create Spring Boot Application Image
+      command: docker build -t mahdijr/app-server:2.0 /var/lib/jenkins/workspace/DevOps-IOC/serveur
+      ignore_errors: yes
+    - name: Create Angular Application Image
+      command: docker build -t mahdijr/app-client:2.0 /var/lib/jenkins/workspace/DevOps-IOC/client
+      ignore_errors: yes
