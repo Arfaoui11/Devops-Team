@@ -54,8 +54,8 @@ pipeline {
     environment {
         registry = "mahdijr/devops-tp"
         registryCredential = 'a8e9ee1f-1fa3-47e5-bef7-5d65e3d019f4'
-        dockerImageSpring = 'mahdijr/devops-cicd_app-server'
-        dockerImageAngular = 'mahdijr/devops-cicd_app-client'
+        dockerImageSpring = 'devops-cicd_app-server:latest'
+        dockerImageAngular = 'devops-cicd_app-client:latest'
     }
     agent any
     stages {
