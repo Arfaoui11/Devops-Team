@@ -53,7 +53,7 @@ import java.text.SimpleDateFormat
 pipeline {
     environment {
         registry = "mahdijr/devops-tp"
-        registryCredential = 'dckr_pat_gc2mr1yxEuTqzpud9xtI2f5W-oE'
+        registryCredential = 'jenkins-dockerhub-token'
         dockerImageSpring = 'devops-cicd_app-server:latest'
         dockerImageAngular = 'devops-cicd_app-client:latest'
     }
