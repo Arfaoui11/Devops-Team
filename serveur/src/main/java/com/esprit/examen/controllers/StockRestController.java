@@ -5,7 +5,6 @@ package com.esprit.examen.controllers;
 import java.util.List;
 
 import com.esprit.examen.dto.StockDTO;
-import com.esprit.examen.entities.Produit;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,7 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(tags = "Gestion des stocks")
 @RequestMapping("/stock")
+
 public class StockRestController {
 
 	@Autowired
