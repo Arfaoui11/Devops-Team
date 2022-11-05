@@ -69,18 +69,18 @@ pipeline {
                       }
         }
 
-      stage("Run the container with ansible"){
+    /*  stage("Run the container with ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }
-        /*       stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
+                        }*/
+             stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }
 
-         stage("Build the package"){
+         /*  stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
