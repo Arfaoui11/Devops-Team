@@ -100,20 +100,13 @@ pipeline {
 
         stage('Deploy our image Server') {
             steps {
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImageSpring.push()
-                    }
-                }
+                sh 'docker push mahdijr/app-server:2.0'
+
             }
         }
         stage('Deploy our image Client') {
                     steps {
-                        script {
-                            docker.withRegistry( '', registryCredential ) {
-                                dockerImageAngular.push()
-                            }
-                        }
+                       sh 'docker push mahdijr/app-client:2.0'
                     }
                 }
      /* stage("Sonar Quality Check"){
