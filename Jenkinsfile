@@ -54,8 +54,8 @@ pipeline {
     environment {
         registry = "mahdijr/devops-tp"
         registryCredential = 'jenkins-dockerhub-token'
-        dockerImageSpring = 'devops-cicd_app-server:latest'
-        dockerImageAngular = 'devops-cicd_app-client:latest'
+        dockerImageSpring = 'mahdijr/devops-cicd_app-server:latest'
+        dockerImageAngular = 'mahdijr/devops-cicd_app-client:latest'
     }
     agent any
     stages {
