@@ -80,14 +80,14 @@ pipeline {
                     }
                 }
 
-         /*  stage("Build the package"){
+           stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
         }
 
 
-*/
+
 
           /*
         stage('Building our image') {
@@ -96,9 +96,9 @@ pipeline {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-        }
+        }*/
 
-        stage('Deploy our image Serveur') {
+        stage('Deploy our image Server') {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
@@ -115,7 +115,7 @@ pipeline {
                             }
                         }
                     }
-                }*/
+                }
      /* stage("Sonar Quality Check"){
 		steps{
 		    script{
