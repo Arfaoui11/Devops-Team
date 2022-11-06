@@ -63,15 +63,15 @@ public class FournisseurServiceMockImplTest {
         fournisseurService.deleteFournisseur(o.getIdFournisseur());
         verify(fournisseurRepository).deleteById(o.getIdFournisseur());
     }
-  /*  @Test
+    @Test
     void testupdateFournisseur( ) {
         when(fournisseurRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(fournisseur));
-        Fournisseur pr =fournisseurService.retrieveFournisseur(2L);
+        Fournisseur pr =fournisseurService.retrieveFournisseur(1L);
         pr.setLibelle("pass");
         assertThat(pr.getLibelle()).isEqualTo("pass");
     }
 
-    @Test
+   /* @Test
     void  testretrieveAllFournisseurs(){
         when(fournisseurRepository.findAll()).thenReturn(fournisseurs);
         List<Fournisseur> op =fournisseurService.retrieveAllFournisseurs();
