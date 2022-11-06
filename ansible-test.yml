@@ -1,0 +1,18 @@
+---
+- name: test&deploy
+  hosts: dev-servers
+  remote_user: root
+  become: true
+  tasks:
+    - name: Maven Test with SonarQube
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
+      ignore_errors: yes
+    - name: Push the Spring Boot image to DockerHub
+      command: docker push mahdijr/app-server:2.0
+      ignore_errors: yes
+    - name: Push the Angular image to DockerHub
+      command: docker push mahdijr/app-client:2.0
+      ignore_errors: yes
+    - name: Maven deplay with Nexus
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml deploy
+      ignore_errors: yes

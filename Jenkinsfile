@@ -69,85 +69,36 @@ pipeline {
                       }
         }
 
-     stage("Run the container with ansible"){
-                            steps {
-                                sh 'ansible-playbook ansible-playbook.yml'
-                            }
-                        }
-          /*    stage("maven Clean and Package && nexus deploy && Sonar Quality Check with ansible"){
+
+              stage("Maven Clean and Package"){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }
 
+                stage("Tests JUnit / Mockito & Deploy artifacts with Nexus et DockerHub "){
+                                     steps {
+                                       sh 'ansible-playbook ansible-test.yml'
+                                     }
+                                }
+
            stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
-        }*/
-
-
-
-
-          /*
-        stage('Building our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
         }
 
-        stage('Deploy our image Serveur') {
-            steps {
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImageSpring.push()
-                    }
-                }
-            }
-        }
-        stage('Deploy our image Client') {
-                    steps {
-                        script {
-                            docker.withRegistry( '', registryCredential ) {
-                                dockerImageAngular.push()
-                            }
-                        }
-                    }
-                }
-     /* stage("Sonar Quality Check"){
-		steps{
-		    script{
-		     withSonarQubeEnv(installationName: 'sonar-9', credentialsId: 'jenkins-sonar-token') {
-		     sh 'mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur sonar:sonar'
-	    	}
-	    	 timeout(time: 1, unit: 'HOURS') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                }
-
-		    }
-
-
-		    }
-            }
-        }*/
 
 
 
-/*
 
-        stage('Cleaning up') {
 
-            steps {
 
-                sh "docker rmi $registry:$BUILD_NUMBER"
 
-            }
 
-        }*/
+
+
+
 
 
 
