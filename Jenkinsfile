@@ -80,7 +80,7 @@ pipeline {
                                      steps {
                                        sh 'ansible-playbook ansible-test.yml'
                                      }
-                                }
+                          }
 
            stage("Build the package"){
              steps {
