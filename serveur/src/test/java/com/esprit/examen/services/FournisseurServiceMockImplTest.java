@@ -37,8 +37,7 @@ public class FournisseurServiceMockImplTest {
         }
     };
 
-    @Test
-
+   /* @Test
     void testRetrieveFournisseur(){
         when(fournisseurRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(fournisseur));
         Fournisseur op1= fournisseurService.retrieveFournisseur(1L);
@@ -81,5 +80,7 @@ public class FournisseurServiceMockImplTest {
 
 
 
+
+    */
 
 }
