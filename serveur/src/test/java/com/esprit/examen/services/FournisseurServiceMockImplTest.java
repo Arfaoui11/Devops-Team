@@ -39,14 +39,14 @@ public class FournisseurServiceMockImplTest {
     };
 
     @Test
-    public void  retrieveAllFournisseursTest () {
+     void  retrieveAllFournisseursTest () {
         when(fournisseurRepository.findAll()).thenReturn(fournisseurs);
         List<Fournisseur> fournisseurList = fournisseurService.retrieveAllFournisseurs();
         assertNotNull(fournisseurList);
 
     }
     @Test
-    public void  addFournisseurTest() {
+     void  addFournisseurTest() {
         DetailFournisseur df = new DetailFournisseur();
         df.setIdDetailFournisseur(1L);
         when(fournisseurRepository.save(any())).thenReturn(df);
@@ -56,7 +56,7 @@ public class FournisseurServiceMockImplTest {
 
     }
     @Test
-    public void  updateFournisseurTest() {
+     void  updateFournisseurTest() {
         DetailFournisseur df = new DetailFournisseur();
         df.setIdDetailFournisseur(1L);
         when(fournisseurRepository.save(any())).thenReturn(df);
@@ -64,7 +64,7 @@ public class FournisseurServiceMockImplTest {
         assertEquals(1L, df.getIdDetailFournisseur());
     }
     @Test
-    public void  retrieveFournisseurTest() {
+     void  retrieveFournisseurTest() {
 
         DetailFournisseur df = new DetailFournisseur();
         df.setIdDetailFournisseur(1L);
