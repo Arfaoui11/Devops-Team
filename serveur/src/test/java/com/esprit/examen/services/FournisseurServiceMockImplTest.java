@@ -42,7 +42,7 @@ public class FournisseurServiceMockImplTest {
     public void  retrieveAllFournisseursTest () {
         when(fournisseurRepository.findAll()).thenReturn(fournisseurs);
         List<Fournisseur> fournisseurList = fournisseurService.retrieveAllFournisseurs();
-        assertNotNull(op);
+        assertNotNull(fournisseurList);
 
     }
     @Test
