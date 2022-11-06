@@ -38,13 +38,13 @@ public class FournisseurServiceMockImplTest {
         }
     };
 
-    @Test
+  /*  @Test
      void  retrieveAllFournisseursTest () {
         when(fournisseurRepository.findAll()).thenReturn(fournisseurs);
         List<Fournisseur> fournisseurList = fournisseurService.retrieveAllFournisseurs();
         assertNotNull(fournisseurList);
 
-    }
+    }*/
     @Test
      void  addFournisseurTest() {
         DetailFournisseur df = new DetailFournisseur();
