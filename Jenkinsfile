@@ -73,6 +73,7 @@ pipeline {
              steps {
                sh 'kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml'
              }
+             }
      stage("Run the container with ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
