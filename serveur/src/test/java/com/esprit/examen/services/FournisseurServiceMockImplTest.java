@@ -53,7 +53,7 @@ public class FournisseurServiceMockImplTest {
 
 
     }
-   /* @Test
+   @Test
     void testDeleteFournisseur()  {
         Fournisseur op = new Fournisseur();
         op.setCode("test");
@@ -63,7 +63,7 @@ public class FournisseurServiceMockImplTest {
         fournisseurService.deleteFournisseur(o.getIdFournisseur());
         verify(fournisseurRepository).deleteById(o.getIdFournisseur());
     }
-    @Test
+  /*  @Test
     void testupdateFournisseur( ) {
         when(fournisseurRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(fournisseur));
         Fournisseur pr =fournisseurService.retrieveFournisseur(2L);
