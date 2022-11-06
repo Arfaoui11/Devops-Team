@@ -6,7 +6,7 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProductService {
-  readonly API_URL = 'http://app-server:31000/SpringMVC/produit';
+  readonly API_URL = 'http://10.0.0.10:8089/SpringMVC/produit';
 
   constructor(private httpClient: HttpClient) { }
   getAllProducts() {
