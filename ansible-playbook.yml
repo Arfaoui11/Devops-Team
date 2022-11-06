@@ -5,16 +5,16 @@
   become: true
   tasks:
     - name:  Deploy MySQL on Kubernetes
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/mysql.yml
       ignore_errors: yes
     - name:  Create Spring Boot Application Image
-      command: docker build -t mahdijr/app-k8s-server:1.0 /var/lib/jenkins/workspace/DevOps-IOC/cluster-admin
+      command: docker build -t mahdijr/app-k8s-server:1.0 /var/lib/jenkins/workspace/DevOps-IOC/serveur
       ignore_errors: yes
     - name:  Push the image Spring Boot to DockerHub
       command: docker push mahdijr/app-k8s-server:1.0
       ignore_errors: yes
     - name: Deploy Spring Boot on Kubernetes
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-server.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-server.yml
       ignore_errors: yes
     - name: Create Angular Application Image
       command: docker build -t mahdijr/app-k8s-client:1.0 /var/lib/jenkins/workspace/DevOps-IOC/client
@@ -23,19 +23,19 @@
       command: docker push mahdijr/app-k8s-client:1.0
       ignore_errors: yes
     - name: Deploy Angular on Kubernetes
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml
       ignore_errors: yes
     - name: Expose the App Using an Ingress
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx.yml
       ignore_errors: yes
     - name: Create ClusterIssuer
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/staging-issuer.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/staging-issuer.yml
       ignore_errors: yes
     - name: Create Production ClusterIssuer
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/prod-issuer.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/prod-issuer.yml
       ignore_errors: yes
     - name: Configure Ingress To Use Production ClusterIssuer
-      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml --context cluster-admin
+      command: kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
       ignore_errors: yes
     - name: maven deplay with nexus
       command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy
