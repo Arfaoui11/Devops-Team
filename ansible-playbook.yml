@@ -24,19 +24,19 @@
       command: docker push mahdijr/app-k8s-client:1.0
       ignore_errors: yes
     - name: Deploy Angular on Kubernetes
-      command: su - vagrant -c kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml
+      command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/app-client.yml
       ignore_errors: yes
     - name: Expose the App Using an Ingress
-      command: su - vagrant -c kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx.yml
+      command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx.yml
       ignore_errors: yes
     - name: Create ClusterIssuer
-      command: su - vagrant -c kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/staging-issuer.yml
+      command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/staging-issuer.yml
       ignore_errors: yes
     - name: Create Production ClusterIssuer
-      command: su - vagrant -c kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/prod-issuer.yml
+      command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/prod-issuer.yml
       ignore_errors: yes
     - name: Configure Ingress To Use Production ClusterIssuer
-      command: su - vagrant -c kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
+      command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
       ignore_errors: yes
     - name: maven deplay with nexus
       command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy
