@@ -1,4 +1,4 @@
-/*package com.esprit.examen.services;
+package com.esprit.examen.services;
 
 
 import com.esprit.examen.entities.DetailFournisseur;
@@ -40,9 +40,9 @@ public class FournisseurServiceMockImplTest {
 
     @Test
     public void  retrieveAllFournisseursTest () {
-        when(fournisseurRepository.findAll()).thenReturn(new ArrayList<>());
+        when(fournisseurRepository.findAll()).thenReturn(fournisseurs);
         List<Fournisseur> fournisseurList = fournisseurService.retrieveAllFournisseurs();
-        assertEquals(0,fournisseurList.size());
+        assertNotNull(op);
 
     }
     @Test
@@ -75,4 +75,4 @@ public class FournisseurServiceMockImplTest {
 
 
 
-}*/
+}
