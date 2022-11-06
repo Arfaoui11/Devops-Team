@@ -17,7 +17,6 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(tags = "Gestion des produits")
 @RequestMapping("/produit")
-@CrossOrigin("*")
 public class ProduitRestController {
 
 	@Autowired
