@@ -4,6 +4,9 @@
   remote_user: root
   become: true
   tasks:
+    - name: Maven Test with JUnit / Mockito
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml test
+      ignore_errors: yes
     - name: Maven Test with SonarQube
       command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
       ignore_errors: yes
