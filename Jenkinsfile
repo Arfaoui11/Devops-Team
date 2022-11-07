@@ -21,7 +21,7 @@ pipeline {
         }
 
 
-              stage("Maven Clean and Package"){
+              stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
                     steps {
                         sh 'ansible-playbook ansible-playbook.yml'
                     }
