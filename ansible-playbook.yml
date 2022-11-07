@@ -1,8 +1,8 @@
 ---
 - name: sample_book
   hosts: dev-servers
-  remote_user: vagrant
-  become_user: vagrant
+  remote_user: root
+ # become_user: vagrant
   become: true
   tasks:
     - name:  Deploy MySQL on Kubernetes
@@ -38,9 +38,9 @@
     - name: Configure Ingress To Use Production ClusterIssuer
       command:  kubectl apply -f /var/lib/jenkins/workspace/DevOps-IOC/k8s/ingress-nginx-https.yml
       ignore_errors: yes
-    - name: maven deplay with nexus
-      command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy
-      ignore_errors: yes
+   # - name: maven deplay with nexus
+    #  command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml deploy
+    #  ignore_errors: yes
     - name: maven Test with SonarQube
       command: mvn -f /var/lib/jenkins/workspace/DevOps-IOC/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
       ignore_errors: yes
