@@ -8,10 +8,10 @@
       command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
       ignore_errors: yes
     - name: Push the Spring Boot image to DockerHub
-      command: docker push mahdijr/app-server:2.0
+      command: docker push mahdijr/app-server:latest
       ignore_errors: yes
     - name: Push the Angular image to DockerHub
-      command: docker push mahdijr/app-client:2.0
+      command: docker push mahdijr/app-client:latest
       ignore_errors: yes
     - name: Maven deplay with Nexus
       command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml deploy
