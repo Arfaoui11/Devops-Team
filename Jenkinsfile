@@ -20,14 +20,20 @@ pipeline {
                       }
         }
 
+          stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
+                            steps {
+                                sh 'ansible-playbook ansible-playbook.yml'
+                            }
+                        }
 
-              stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
+
+            /*  stage("Maven Clean and Package"){
                     steps {
-                        sh 'ansible-playbook ansible-playbook.yml'
+                        sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }
 
-            /*    stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus et DockerHub "){
+                stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus et DockerHub "){
                                      steps {
                                        sh 'ansible-playbook ansible-test.yml'
                                      }
