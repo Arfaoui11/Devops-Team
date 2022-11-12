@@ -33,7 +33,7 @@ pipeline {
                     }
                 }
 
-                stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus && DockerHub "){
+                stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus && DockerHub avec Ansible "){
                                      steps {
                                        sh 'ansible-playbook ansible-test.yml'
                                      }
