@@ -16,7 +16,6 @@ pipeline {
                       steps{
                           echo 'Pulling...';
                           git branch: 'master',
-                          credentialsId: '588e574a-4bfc-47f8-8e3f-5999c6c1ac97'
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
