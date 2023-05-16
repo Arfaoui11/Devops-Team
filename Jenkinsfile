@@ -13,12 +13,18 @@ pipeline {
 
 
         stage('Checkout GIT'){
-                      steps{
+                     /*  steps{
                           echo 'Pulling...';
                           git branch: 'master',
                           credentialsId: 'f97f103c-392f-47e3-b42a-ffd99a80ef53'
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
-                      }
+                      } */
+                       steps {
+                         sshagent(credentials: ['f97f103c-392f-47e3-b42a-ffd99a80ef53']) {
+                           // Run the git command within the SSH agent
+                              git sshUrl: 'git@github.com:Arfaoui11/Devops-Team.git', credentialsId: 'f97f103c-392f-47e3-b42a-ffd99a80ef53'
+                             }
+                         }
         }
 
 
