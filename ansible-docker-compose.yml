@@ -16,18 +16,18 @@
     - name: Run Grafana container with Ansible
       command: docker start grafana
       ignore_errors: yes
-#    - name: maven Clean package with Ansible
-#      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml clean package
-#      ignore_errors: yes
-#    - name: Create Spring Boot Application Image
-#      command: docker build -t mahdijr/app-server:latest /var/lib/jenkins/workspace/DevOps-CICD/serveur
-#      ignore_errors: yes
-#    - name: Create Angular Application Image
-#      command: docker build -t mahdijr/app-client:latest /var/lib/jenkins/workspace/DevOps-CICD/client
-#      ignore_errors: yes
-#    - name: Push the Spring Boot image to DockerHub
-#      command: docker push mahdijr/app-server:latest
-#      ignore_errors: yes
-#    - name: Push the Angular image to DockerHub
-#      command: docker push mahdijr/app-client:latest
-#      ignore_errors: yes
+    - name: maven Clean package with Ansible
+      command: mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml clean package
+      ignore_errors: yes
+    - name: Create Spring Boot Application Image
+      command: docker build -t mahdijr/app-server:latest /var/lib/jenkins/workspace/DevOps-CICD/serveur
+      ignore_errors: yes
+    - name: Create Angular Application Image
+      command: docker build -t mahdijr/app-client:latest /var/lib/jenkins/workspace/DevOps-CICD/client
+      ignore_errors: yes
+   # - name: Push the Spring Boot image to DockerHub
+    #  command: docker push mahdijr/app-server:latest
+     # ignore_errors: yes
+    - name: Push the Angular image to DockerHub
+      command: docker push mahdijr/app-client:latest
+      ignore_errors: yes
