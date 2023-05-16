@@ -13,17 +13,11 @@ pipeline {
 
 
         stage('Checkout GIT'){
-                   /*    steps{
+                      steps{
                           echo 'Pulling...';
                           git branch: 'master',
-                          credentialsId: 'f97f103c-392f-47e3-b42a-ffd99a80ef53'
+                          credentialsId: '588e574a-4bfc-47f8-8e3f-5999c6c1ac97'
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
-                      } */
-                         steps{
-                           echo 'Pulling...';
-                             git branch: 'master',
-                             credentialsId: 'f97f103c-392f-47e3-b42a-ffd99a80ef53'
-                             sshUrl: 'git@github.com:Arfaoui11/Devops-Team.git';
                       }
         }
 
