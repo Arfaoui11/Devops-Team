@@ -9,7 +9,7 @@
       command: docker start nexus
       ignore_errors: yes
     - name: Run SonarQube container with Ansible
-      command: docker start tender_nightingale
+      command: docker start 36b32eafa48b
       ignore_errors: yes
     - name: Run Prometheus container with Ansible
       command: docker start prometheus
