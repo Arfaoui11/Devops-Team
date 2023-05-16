@@ -28,19 +28,19 @@ pipeline {
                         }
 
 
-            /*  stage("Maven Clean And  Package "){
+             stage("Maven Clean And  Package "){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
                 }
 
-                stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus && DockerHub avec Ansible "){
+            /*    stage("Tests JUnit / Mockito / SonarQube && Deploy artifacts with Nexus && DockerHub avec Ansible "){
                                      steps {
                                        sh 'ansible-playbook ansible-test.yml'
                                      }
                           }
 
-           stage("Build the package"){
+            stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
