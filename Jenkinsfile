@@ -16,18 +16,19 @@ pipeline {
                       steps{
                           echo 'Pulling...';
                           git branch: 'master',
+                          credentialsId: 'f97f103c-392f-47e3-b42a-ffd99a80ef53'
                           url: 'https://github.com/Arfaoui11/Devops-Team.git';
                       }
         }
 
-         /* stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
+            stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
-                        }*/
+                        }
 
 
-             stage("Maven Clean And  Package "){
+            /*  stage("Maven Clean And  Package "){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
@@ -43,7 +44,7 @@ pipeline {
              steps {
                sh 'docker-compose up -d --build'
              }
-        }
+        } */
 
 
     }
