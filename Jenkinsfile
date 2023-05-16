@@ -16,7 +16,7 @@ pipeline {
                       steps{
                           echo 'Pulling...';
                           git branch: 'master',
-                          url: 'https://github.com/Arfaoui11/Devops-Team.git';
+                          url: 'https://Arfaoui11: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@github.com/Arfaoui11/Devops-Team.git';
                       }
         }
 
