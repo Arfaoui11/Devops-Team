@@ -22,14 +22,14 @@ pipeline {
 
 
 
-            stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
+          /*  stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
                             steps {
                                 sh 'ansible-playbook ansible-playbook.yml'
                             }
                         }
 
 
-           /*   stage("Maven Clean And  Package "){
+              stage("Maven Clean And  Package "){
                     steps {
                         sh 'ansible-playbook ansible-docker-compose.yml'
                     }
@@ -39,13 +39,13 @@ pipeline {
                                      steps {
                                        sh 'ansible-playbook ansible-test.yml'
                                      }
-                          }
+                          }*/
 
             stage("Build the package"){
              steps {
                sh 'docker-compose up -d --build'
              }
-        } */
+        } 
 
 
     }
