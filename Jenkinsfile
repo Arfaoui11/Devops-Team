@@ -21,7 +21,7 @@ pipeline {
           jq --version
         '''
       }
-    
+     }
         stage('Checkout GIT'){
                       steps{
                           echo 'Pulling...';
