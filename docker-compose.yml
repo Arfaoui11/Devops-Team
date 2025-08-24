@@ -34,17 +34,17 @@ services:
     ports:
       - "9001:9000"
   # Frontend Service
-  app-client:
-    build:
-      context: client # Use an image built from the specified dockerfile in the `client` directory.
-      dockerfile: Dockerfile
-    ports:
-      - "4200:80" # Map the exposed port 80 on the container to port 4200 on the host machine
-    restart: always
-    depends_on:
-      - app-server
-    networks:
-      - frontend
+ # app-client:
+ #   build:
+  #    context: client # Use an image built from the specified dockerfile in the `client` directory.
+  #    dockerfile: Dockerfile
+ #   ports:
+  #    - "4200:80" # Map the exposed port 80 on the container to port 4200 on the host machine
+  #  restart: always
+  #  depends_on:
+  #    - app-server
+  #  networks:
+   #   - frontend
 
   # Database Service (Mysql)
   mysqldb:
