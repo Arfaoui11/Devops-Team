@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableScheduling
 @EnableSwagger2
 @SpringBootApplication
-@CrossOrigin(origins = "http://localhost:80")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class TpAchatProjectApplication {
 	@Bean

@@ -19,7 +19,7 @@ public class DevConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:80") // Angular dev
+                        .allowedOrigins("http://localhost:4200") // Angular dev
                          .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS") // All CRUD + OPTIONS
                         .allowedHeaders("*")        // Allow all headers
                         .allowCredentials(true);    // Allow credentials (cookies, auth headers)
