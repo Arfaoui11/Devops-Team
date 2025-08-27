@@ -20,11 +20,11 @@ pipeline {
                       }
         }
 
-       /*  stage("Clean and Build package"){
+         stage("Clean and Build package"){
                             steps {
                                 sh 'mvn -f /var/lib/jenkins/workspace/DevOps-CICD/serveur/pom.xml clean package'
                             }
-                        }*/
+                        }
 
           /*  stage("Test (Junit && Mockito) And Build The Package with Kubernetes and Ansible"){
                             steps {
