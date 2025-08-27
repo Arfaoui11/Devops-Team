@@ -20,18 +20,18 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - appNet
-  #portainer:
-   # image: portainer/portainer-ce:latest
-   # container_name: portainer
-   # restart: unless-stopped
-   # security_opt:
-    #  - no-new-privileges:true
-   # volumes:
-    #  - /etc/localtime:/etc/localtime:ro
-    #  - /var/run/docker.sock:/var/run/docker.sock
-    #  - ./portainer-data:/data
-   # ports:
-    #  - "9001:9000"
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer-data:/data
+    ports:
+      - "9001:9000"
   # Frontend Service
   app-client:
     build:
