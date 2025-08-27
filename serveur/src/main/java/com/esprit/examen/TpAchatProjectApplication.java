@@ -9,11 +9,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @EnableScheduling
 @EnableSwagger2
 @SpringBootApplication
+@CrossOrigin(origins = "http://localhost:80")
 @RestController
 public class TpAchatProjectApplication {
 	@Bean
