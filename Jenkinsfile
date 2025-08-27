@@ -22,7 +22,7 @@ pipeline {
 
          stage("Clean and Build package"){
                             steps {
-                                sh 'mvn -f /var/lib/jenkins/workspace/Job Application/serveur/pom.xml clean package'
+                                sh 'mvn -f /var/lib/jenkins/workspace/Job_Application/serveur/pom.xml clean package'
                             }
                         }
 
