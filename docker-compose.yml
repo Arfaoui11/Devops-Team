@@ -27,9 +27,8 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./portainer-data:/data
+      - portainer_data:/data
     ports:
       - "9001:9000"
   # Frontend Service
@@ -61,3 +60,7 @@ services:
 networks:
   appNet:
     driver: bridge
+
+volumes:
+  portainer_data:
+
