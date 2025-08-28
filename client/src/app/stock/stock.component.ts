@@ -57,7 +57,7 @@ export class StockComponent implements OnInit {
     } else
     {
       this.stock = new Stock();
-      this.update = true;
+      this.update = false;
     }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
