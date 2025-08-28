@@ -14,6 +14,7 @@ export class SecteurActiviteComponent implements OnInit {
   form: boolean = false;
   sec!: SecteurActivite;
   closeResult!: string;
+  update: boolean = false;
 
   constructor(private secteurActiviteService: SecteurActiviteService, private modalService: NgbModal) {
   }
@@ -48,9 +49,15 @@ export class SecteurActiviteComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.sec = action
-    else
+    {
+      this.sec = action;
+      this.update = true;
+    } else
+    {
       this.sec = new SecteurActivite();
+      this.update = false;
+    }
+
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

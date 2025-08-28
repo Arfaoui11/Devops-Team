@@ -14,6 +14,7 @@ export class StockComponent implements OnInit {
   form: boolean = false;
   stock!: Stock;
   closeResult!: string;
+  update: boolean = false;
 
   constructor(private stockService: StockService, private modalService: NgbModal) {
   }
@@ -50,9 +51,14 @@ export class StockComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.stock = action
-    else
+    {
+      this.stock = action;
+      this.update = true;
+    } else
+    {
       this.stock = new Stock();
+      this.update = true;
+    }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

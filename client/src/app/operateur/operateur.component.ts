@@ -14,6 +14,7 @@ export class OperateurComponent implements OnInit {
   form: boolean = false;
   operateur!: Operateur;
   closeResult!: string;
+  update: boolean = false;
 
   constructor(private operateurService: OperateurService, private modalService: NgbModal) {
   }
@@ -49,9 +50,14 @@ export class OperateurComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.operateur = action
-    else
+    {
+      this.operateur = action;
+      this.update = true;
+    } else
+    {
       this.operateur = new Operateur();
+      this.update = true;
+    }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

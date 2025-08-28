@@ -78,7 +78,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="addFacture(facture)"
-            (click)="modal1.close('Save click')">Add
+            (click)="modal1.close('Save click')">{{update ? "Edit" : "Add"}}
     </button>
     <button type="button" class="btn btn-danger" (click)="modal1.close('Save click')">Cancel</button>
   </div>
