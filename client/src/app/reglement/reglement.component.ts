@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Reglement} from '../shared/Model/Reglement';
 import {ReglementService} from '../shared/Service/Reglement.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Product} from "../shared/Model/Product";
 
 @Component({
   selector: 'app-reglement',
@@ -16,7 +15,6 @@ export class ReglementComponent implements OnInit {
   form: boolean = false;
   reglement!: Reglement;
   closeResult!: string;
-  update: boolean = false;
 
   constructor(private reglementService: ReglementService, private modalService: NgbModal) {
   }
@@ -43,17 +41,7 @@ export class ReglementComponent implements OnInit {
     });
   }
 
-  open(content: any, action: any) {
-    if (action != null)
-    {
-      this.reglement = action;
-      this.update = true;
-    }
-    else
-    {
-      this.reglement = new Reglement();
-      this.update = false;
-    }
+  open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
