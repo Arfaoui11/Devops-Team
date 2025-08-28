@@ -14,6 +14,7 @@ export class ProductsComponent implements OnInit {
   form: boolean = false;
   product!: Product;
   closeResult!: string;
+  private update: boolean = false;
 
   constructor(private productService: ProductService, private modalService: NgbModal) {
   }
@@ -53,9 +54,15 @@ export class ProductsComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.product = action
+    {
+      this.product = action;
+      this.update = true;
+    }
     else
+    {
       this.product = new Product();
+    }
+    
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason: any) => {
