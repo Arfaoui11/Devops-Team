@@ -1,0 +1,17 @@
+<div class="youtube-container">
+  <iframe
+    [src]="embedUrl | safeUrl"
+    [width]="width"
+    [height]="height"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<div class="playlist-buttons">
+  <button *ngFor="let p of playlists"
+          (click)="changePlaylist(p.id)"
+          class="playlist-btn">
+    {{ p.name }}
+  </button>
+</div>

@@ -1,0 +1,24 @@
+.youtube-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.playlist-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.playlist-btn {
+  padding: 8px 16px;
+  border: none;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.playlist-btn:hover {
+  background: #cc0000;
+}

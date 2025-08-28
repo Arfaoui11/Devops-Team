@@ -7,6 +7,7 @@ import {FactureComponent} from "./facture/facture.component";
 import {StockComponent} from "./stock/stock.component";
 import {ProductsComponent} from "./products/products.component";
 import {ReglementComponent} from "./reglement/reglement.component";
+import {VideoComponent} from "./video/video.component";
 
 
 const routes: Routes =[
@@ -16,6 +17,7 @@ const routes: Routes =[
   { path: 'product',  component: ProductsComponent },
   { path: 'stock',  component: StockComponent },
   { path: 'reglement',  component: ReglementComponent },
+  { path: 'video',  component: VideoComponent },
   {path: '', redirectTo: 'product', pathMatch: 'full'}
 ];
 

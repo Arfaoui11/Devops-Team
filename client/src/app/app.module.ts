@@ -14,6 +14,7 @@ import {FactureComponent} from "./facture/facture.component";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {AppRoutingModule} from "./app-routing.module";
 import { NgbModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VideoComponent } from './video/video.component';
 
 
 
@@ -26,7 +27,8 @@ import { NgbModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap'
     SecteurActiviteComponent,
     OperateurComponent,
     FactureComponent,
-    NavbarComponent
+    NavbarComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
