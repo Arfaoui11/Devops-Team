@@ -56,7 +56,7 @@ export class OperateurComponent implements OnInit {
     } else
     {
       this.operateur = new Operateur();
-      this.update = true;
+      this.update = false;
     }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
