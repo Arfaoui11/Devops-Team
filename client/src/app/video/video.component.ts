@@ -14,9 +14,9 @@ export class VideoComponent implements OnInit {
 
   playlists: { id: string, name: string }[] = [
     { id: 'PLBCF2DAC6FFB574DE', name: 'Playlist 1' },
-    { id: 'IIMRVPkDVLgFBQil', name: 'Playlist 2' },
-    { id: '6qYyiPGJPmkAN8dK', name: 'Playlist 3' },
-    { id: '3Cz3hi5bcokYXMSp', name: 'Playlist 4' }
+    { id: 'PLTo6svdhIL1cxS4ffGueFpVCF756ip-ab', name: 'Playlist 2' },
+    { id: 'PLTo6svdhIL1dmKROhDPix9DjGjuSkPMI6', name: 'Playlist 3' },
+    { id: 'PLQP5dDPLts67aj6KZCeGOqm_f7JAJDsAD', name: 'Playlist 4' }
   ];
 
   currentPlaylistId: string = this.playlists[0].id;
