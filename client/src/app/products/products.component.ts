@@ -61,6 +61,7 @@ export class ProductsComponent implements OnInit {
     else
     {
       this.product = new Product();
+      this.update = false;
     }
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
