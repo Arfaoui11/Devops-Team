@@ -1,6 +1,6 @@
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:11-jre-alpine
+
 EXPOSE 8089
-ADD target/docker-spring-boot.jar docker-spring-boot.jar
+COPY target/docker-spring-boot.jar /docker-spring-boot.jar
+
 ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
-
-
