@@ -58,6 +58,12 @@ public class StockRestController {
 		return  stockService.updateStock( persistentStock);
 	}
 
+	@GetMapping("/retrieve-status-stock")
+	@ResponseBody
+	public String retrieveStatusStock() {
+		return stockService.retrieveStatusStock();
+	}
+
 	/*
 	 * Spring Scheduler : Comparer QteMin tolérée (à ne pa dépasser) avec
 	 * Quantité du stock et afficher sur console la liste des produits inférieur
