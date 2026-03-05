@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.Stock;
 import com.esprit.examen.repositories.StockRepository;
@@ -81,6 +82,20 @@ public class StockServiceImpl implements IStockService {
 		}
 		log.info(finalMessage.toString());
 		return finalMessage.toString();
+	}
+
+	/*
+	 * Spring Scheduler : Comparer QteMin tolerée (a ne pa depasser) avec
+	 * Quantite du stock et afficher sur console la liste des produits inferieur
+	 * au stock La fct schedule doit obligatoirement etre sans parametres et
+	 * sans retour (void)
+	 */
+	@Scheduled(fixedDelayString = "${stock.status.scheduler.delay.ms:60000}")
+	public void retrieveStatusStockScheduler() {
+		String status = retrieveStatusStock();
+		if (status == null || status.trim().isEmpty()) {
+			log.info("Aucun stock inferieur a la quantite minimale.");
+		}
 	}
 
 }
