@@ -12,16 +12,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class DevConfig implements WebMvcConfigurer {
-    @Value("${remote.server.url}")
-    private String url;
+    @Value("${cors.allowed-origin-patterns}")
+    private String[] allowedOriginPatterns;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                        .allowedOrigins(url) // Angular dev
-                         .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS") // All CRUD + OPTIONS
-                        .allowedHeaders("*")        // Allow all headers
-                        .allowCredentials(true);    // Allow credentials (cookies, auth headers)
+                .allowedOriginPatterns(allowedOriginPatterns)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
