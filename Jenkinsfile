@@ -47,7 +47,7 @@ pipeline {
 
             stage("Build the package"){
              steps {
-               sh 'docker-compose up -d --build'
+               sh 'docker compose up -d --build'
              }
         } 
 
