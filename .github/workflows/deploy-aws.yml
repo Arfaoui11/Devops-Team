@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
   workflow_dispatch:
 
 concurrency:
@@ -13,15 +14,15 @@ concurrency:
 permissions:
   contents: read
 
-env:
-  DEPLOY_HOST: 35.180.252.79
-  # Amazon Linux 2023 AMIs use ec2-user by default.
-  DEPLOY_USER: ${{ vars.AWS_SSH_USER || 'ec2-user' }}
-
 jobs:
   deploy:
     name: Deploy Docker Compose stack
-    runs-on: ubuntu-latest
+
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+
     environment: production
     timeout-minutes: 30
 
@@ -29,111 +30,117 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Configure SSH
+      - name: Show deployment information
         shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-          AWS_KNOWN_HOSTS: ${{ secrets.AWS_KNOWN_HOSTS }}
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Commit: $GITHUB_SHA"
+          echo "Workspace: $GITHUB_WORKSPACE"
+          echo "User: $(whoami)"
+          echo "Host: $(hostname)"
+
+      - name: Check Docker
+        shell: bash
         run: |
           set -Eeuo pipefail
 
-          if [[ -z "$SSH_PRIVATE_KEY" ]]; then
-            echo "The AWS_SSH_PRIVATE_KEY GitHub secret is not configured." >&2
-            exit 1
-          fi
+          docker --version
+          docker compose version
+          docker info
 
-          install -m 700 -d "$HOME/.ssh"
-          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/aws-key.pem"
-          chmod 600 "$HOME/.ssh/aws-key.pem"
-
-          if [[ -n "$AWS_KNOWN_HOSTS" ]]; then
-            printf '%s\n' "$AWS_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          else
-            ssh-keyscan -H "$DEPLOY_HOST" > "$HOME/.ssh/known_hosts"
-          fi
-          chmod 600 "$HOME/.ssh/known_hosts"
-
-      - name: Package application
+      - name: Validate Docker Compose
         shell: bash
         run: |
-          tar \
-            --exclude='.git' \
-            --exclude='.idea' \
-            --exclude='node_modules' \
-            --exclude='target' \
-            -czf "${RUNNER_TEMP}/deploy-${GITHUB_SHA}.tar.gz" .
-
-      - name: Upload application
-        shell: bash
-        run: |
-          scp \
-            -i "$HOME/.ssh/aws-key.pem" \
-            -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=yes \
-            "${RUNNER_TEMP}/deploy-${GITHUB_SHA}.tar.gz" \
-            "${DEPLOY_USER}@${DEPLOY_HOST}:deploy-${GITHUB_SHA}.tar.gz"
-
-      - name: Deploy application
-        shell: bash
-        run: |
-          ssh \
-            -i "$HOME/.ssh/aws-key.pem" \
-            -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=yes \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "RELEASE_SHA='${GITHUB_SHA}' bash -s" <<'REMOTE'
           set -Eeuo pipefail
 
-          archive="$HOME/deploy-${RELEASE_SHA}.tar.gz"
-          release_root="$HOME/devops-team/releases"
-          release_dir="$release_root/$RELEASE_SHA"
+          docker compose \
+            --file docker-compose.yml \
+            config
 
-          mkdir -p "$release_dir"
-          tar -xzf "$archive" -C "$release_dir"
-          rm -f "$archive"
+      - name: Build and deploy application
+        shell: bash
+        run: |
+          set -Eeuo pipefail
 
-          if docker info >/dev/null 2>&1; then
-            docker_command=(docker)
-          elif sudo -n docker info >/dev/null 2>&1; then
-            docker_command=(sudo docker)
-          else
-            echo "Docker is not installed, not running, or unavailable to $USER." >&2
-            exit 1
-          fi
+          echo "Deploying commit: $GITHUB_SHA"
 
-          if "${docker_command[@]}" compose version >/dev/null 2>&1; then
-            compose_command=("${docker_command[@]}" compose)
-          elif command -v docker-compose >/dev/null 2>&1; then
-            compose_command=(docker-compose)
-          else
-            echo "Docker Compose is not installed on the AWS server." >&2
-            exit 1
-          fi
-
-          "${compose_command[@]}" \
+          docker compose \
             --project-name devops-team \
-            --file "$release_dir/docker-compose.yml" \
-            up --detach --build --remove-orphans
+            --file docker-compose.yml \
+            up \
+            --detach \
+            --build \
+            --remove-orphans
 
-          ln -sfn "$release_dir" "$HOME/devops-team/current"
-          "${compose_command[@]}" \
+      - name: Show containers
+        shell: bash
+        run: |
+          docker compose \
             --project-name devops-team \
-            --file "$release_dir/docker-compose.yml" \
+            --file docker-compose.yml \
             ps
 
-          for attempt in {1..12}; do
-            if curl --fail --silent --show-error http://localhost:4200/ >/dev/null; then
-              echo "Deployment is healthy: http://35.180.252.79:4200"
+      - name: Health check
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          echo "Waiting for frontend..."
+
+          for attempt in {1..18}; do
+            if curl \
+              --fail \
+              --silent \
+              --show-error \
+              http://localhost:4200/ \
+              >/dev/null; then
+
+              echo "===================================="
+              echo "Deployment successful"
+              echo "Frontend: http://35.180.252.79:4200"
+              echo "Backend:  http://35.180.252.79:8089"
+              echo "Portainer: http://35.180.252.79:9001"
+              echo "===================================="
+
               exit 0
             fi
-            echo "Waiting for the application to become healthy ($attempt/12)..."
+
+            echo "Waiting for application ($attempt/18)..."
             sleep 10
           done
 
-          echo "The application did not become healthy within 120 seconds." >&2
-          "${compose_command[@]}" \
+          echo "Application did not become healthy."
+
+          docker compose \
             --project-name devops-team \
-            --file "$release_dir/docker-compose.yml" \
-            logs --tail=100
+            --file docker-compose.yml \
+            ps
+
+          echo "===== Backend logs ====="
+
+          docker compose \
+            --project-name devops-team \
+            --file docker-compose.yml \
+            logs \
+            --tail=200 \
+            app-server
+
+          echo "===== Frontend logs ====="
+
+          docker compose \
+            --project-name devops-team \
+            --file docker-compose.yml \
+            logs \
+            --tail=200 \
+            app-client
+
+          echo "===== MySQL logs ====="
+
+          docker compose \
+            --project-name devops-team \
+            --file docker-compose.yml \
+            logs \
+            --tail=100 \
+            mysqldb
+
           exit 1
-          REMOTE

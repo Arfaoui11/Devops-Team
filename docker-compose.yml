@@ -1,79 +1,116 @@
-# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
-
-# Define services
 services:
-  # App backend service
   app-server:
-    # Configuration for building the docker image for the backend service
     build:
-      context: serveur # Use an image built from the specified dockerfile in the `server` directory.
+      context: serveur
       dockerfile: Dockerfile
+
     ports:
-      - "8089:8089" # Forward the exposed port 8089 on the container to port 8089 on the host machine
+      - "8089:8089"
+
     restart: always
+
     depends_on:
       mysqldb:
         condition: service_healthy
-    environment: # Pass environment variables to the service
+
+    environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsDB?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:8089/SpringMVC/ || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -O /dev/null http://localhost:8089/SpringMVC/ || exit 1"
+        ]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 30s
-    networks: # Networks to join (Services on the same network can communicate with each other using their name)
-      - appNet
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    ports:
-      - "9001:9000"
-  # Frontend Service
-  app-client:
-    build:
-      context: client # Use an image built from the specified dockerfile in the `client` directory.
-      dockerfile: Dockerfile
-    ports:
-      - "4200:80" # Map the exposed port 80 on the container to port 4200 on the host machine
-    restart: always
-    depends_on:
-      app-server:
-        condition: service_healthy
+
     networks:
       - appNet
 
-  # Database Service (Mysql)
+
+  app-client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+
+    ports:
+      - "4200:80"
+
+    restart: always
+
+    depends_on:
+      app-server:
+        condition: service_healthy
+
+    networks:
+      - appNet
+
+
   mysqldb:
     image: mysql:5.7
+
     ports:
       - "3306:3306"
+
     restart: always
+
     environment:
       MYSQL_DATABASE: devopsDB
       MYSQL_ROOT_PASSWORD: root
+
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-proot"
+        ]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 20s
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
     networks:
       - appNet
 
-# Networks to be created to facilitate communication between containers
+
+  portainer:
+    image: portainer/portainer-ce:latest
+
+    container_name: portainer
+
+    restart: unless-stopped
+
+    security_opt:
+      - no-new-privileges:true
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+    ports:
+      - "9001:9000"
+
+    networks:
+      - appNet
+
+
 networks:
   appNet:
     driver: bridge
 
-volumes:
-  portainer_data:
 
+volumes:
+  mysql_data:
+  portainer_data:
