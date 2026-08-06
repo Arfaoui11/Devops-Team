@@ -61,8 +61,7 @@ jobs:
             --exclude='.idea' \
             --exclude='node_modules' \
             --exclude='target' \
-            --exclude='deploy-*.tar.gz' \
-            -czf "deploy-${GITHUB_SHA}.tar.gz" .
+            -czf "${RUNNER_TEMP}/deploy-${GITHUB_SHA}.tar.gz" .
 
       - name: Upload application
         shell: bash
@@ -71,7 +70,7 @@ jobs:
             -i "$HOME/.ssh/aws-key.pem" \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
-            "deploy-${GITHUB_SHA}.tar.gz" \
+            "${RUNNER_TEMP}/deploy-${GITHUB_SHA}.tar.gz" \
             "${DEPLOY_USER}@${DEPLOY_HOST}:deploy-${GITHUB_SHA}.tar.gz"
 
       - name: Deploy application
