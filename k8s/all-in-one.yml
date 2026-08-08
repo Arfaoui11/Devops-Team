@@ -1,0 +1,245 @@
+# Combined manifest: deploy the whole app with one command:
+#   kubectl apply -f k8s/all-in-one.yml
+#
+# Prerequisites:
+#   - cert-manager must already be installed on the cluster
+#     (kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml)
+#   - client.k8s.xyz / server.k8s.xyz DNS must point at the ingress controller's IP
+#   - edit MYSQL_ROOT_PASSWORD/MYSQL_PASSWORD below before using in a real environment
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+stringData:
+  MYSQL_ROOT_PASSWORD: F8yanIxX52rhQtrKWlpn7Kxz
+  MYSQL_USERNAME: root
+  MYSQL_PASSWORD: F8yanIxX52rhQtrKWlpn7Kxz
+---
+apiVersion: v1
+kind: PersistentVolumeClaim        # Cluster's default StorageClass dynamically provisions the volume
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: mysql-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 250Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-mysql
+  labels:
+    app: mysql-app
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql-app
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-mysql
+  labels:
+    app: mysql-app
+spec:
+  selector:
+    matchLabels:
+      app: mysql-app
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-app
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          value: devopsDB
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-server
+  labels:
+    app: app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-server
+  template:
+    metadata:
+      labels:
+        app: app-server
+    spec:
+      containers:
+      - name: app-server
+        image: mahdijr/app-k8s-server:1.0
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8089
+        resources:
+          limits:
+            cpu: 0.5
+            memory: "400Mi"
+        env:
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://app-mysql:3306/devopsDB?useSSL=false
+        readinessProbe:
+          httpGet:
+            path: /SpringMVC/
+            port: 8089
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /SpringMVC/
+            port: 8089
+          initialDelaySeconds: 40
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-server
+  labels:
+    app: app-server
+spec:
+  type: NodePort
+  selector:
+    app: app-server
+  ports:
+  - name: http
+    port: 8089
+    targetPort: 8089
+    nodePort: 31000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-client
+  template:
+    metadata:
+      labels:
+        app: app-client
+    spec:
+      containers:
+      - name: app-client
+        image: mahdijr/app-k8s-client:1.0
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 80
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-client
+spec:
+  type: NodePort
+  selector:
+    app: app-client
+  ports:
+  - name: http
+    port: 8090
+    targetPort: 80
+    nodePort: 32000
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    email: java4chinna@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-private-key
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  tls:
+  - hosts:
+    - client.k8s.xyz
+    - server.k8s.xyz
+    secretName: app-tls
+  rules:
+  - host: "client.k8s.xyz"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: app-client
+            port:
+              number: 80
+  - host: "server.k8s.xyz"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /SpringMVC/
+        backend:
+          service:
+            name: app-server
+            port:
+              number: 8089
