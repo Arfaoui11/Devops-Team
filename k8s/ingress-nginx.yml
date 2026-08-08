@@ -20,7 +20,7 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: /api/
+        path: /SpringMVC/
         backend:
           service:
             name: app-server

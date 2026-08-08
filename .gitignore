@@ -34,3 +34,6 @@ build/
 
 # Never commit SSH private keys
 *.pem
+
+# Never commit real k8s secrets
+k8s/mysql-secret.yml

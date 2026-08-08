@@ -21,18 +21,36 @@ spec:
         imagePullPolicy: Always
         ports:
           - name: http
-            containerPort: 8080 # The port that the container exposes
+            containerPort: 8089 # Matches server.port=8089 in application.properties
         resources:
           limits:
             cpu: 0.5
             memory: "400Mi"
         env:                  # Environment variables supplied to the Pod
         - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_USERNAME
         - name: SPRING_DATASOURCE_PASSWORD
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://app-mysql:3306/devopsDB?useSSL=false
+        readinessProbe:
+          httpGet:
+            path: /SpringMVC/
+            port: 8089
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /SpringMVC/
+            port: 8089
+          initialDelaySeconds: 40
+          periodSeconds: 20
 ---
 apiVersion: v1                # API version
 kind: Service                 # Type of the kubernetes resource
